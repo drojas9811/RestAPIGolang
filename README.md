@@ -1,4 +1,10 @@
-# gobank
-A complete JSON API project in Golang where we are building a bank API
+# API REST GOLANG
+A complete API REST project in Golang.
 
-`make run` (for now ^^)`
+## Getting Started
+To get started with the API, you will need to follow these steps:
+
+1. Start Docker.
+2. Run the project: `docker-compose up --build` 
+3. The APIs will be accessible at: `http://127.0.0.1:3000/`
+

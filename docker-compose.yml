@@ -5,10 +5,25 @@ services:
 
   db:
     image: postgres
-    ports:
-      - 5432:5432
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: gobank
       POSTGRES_DB: postgres
+    networks:
+      - external_network
+  
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks: 
+      - external_network
+
+networks:
+  external_network:
+    name: GeneralNetwork
