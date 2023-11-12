@@ -12,7 +12,7 @@ import (
 
 func main() {
 	//Flag for database fseeding
-	seed := flag.Bool("seed", true, "seed the db")
+	seed := flag.Bool("seed", false, "seed the db")
 	flag.Parse()
 	//Initialize database
 	if err := database.Init(); err != nil {

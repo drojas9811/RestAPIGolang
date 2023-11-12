@@ -2,7 +2,6 @@ package models
 
 import (
 	"RestAPIGolang/internal/auth"
-	"fmt"
 	"math/rand"
 	"time"
 )
@@ -31,7 +30,7 @@ func (a *Account) NewAccount(firstName, lastName, password string) error {
 }
 
 func (a *Account) ValidPassword(pw string) bool {
-	return auth.ValidatePassword(a.EncryptedPassword, pw) == nil
+	return auth.ValidatePassword(pw,a.EncryptedPassword) == nil
 }
 
 type CreateAccountRequest struct {
