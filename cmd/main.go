@@ -24,7 +24,6 @@ func main() {
 		utils.SeedAccounts()
 	}
 	//Routes definition
-
 	router := router.InitRouter()
 	//Port definition
 	port := 3000

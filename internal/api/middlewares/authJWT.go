@@ -11,9 +11,6 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-
-
-
 func WithJWTAuth(handlerFunc http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("calling JWT auth middleware")
@@ -53,4 +50,3 @@ func WithJWTAuth(handlerFunc http.HandlerFunc) http.HandlerFunc {
 		handlerFunc(w, r)
 	}
 }
-

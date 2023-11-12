@@ -1,4 +1,4 @@
-package model
+package models
 
 type LoginRequest struct {
 	Number   int64  `json:"number"`

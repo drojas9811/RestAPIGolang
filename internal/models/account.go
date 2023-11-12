@@ -1,10 +1,10 @@
-package model
+package models
 
 import (
+	"RestAPIGolang/internal/auth"
+	"fmt"
 	"math/rand"
 	"time"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 type Account struct {
@@ -18,20 +18,20 @@ type Account struct {
 }
 
 func (a *Account) NewAccount(firstName, lastName, password string) error {
-	encpw, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	if err != nil {
-		return err
-	}
+	hashedPassword, err := auth.EncryptPassword(password)
+    if err != nil {
+        return err
+    }
 	a.FirstName = firstName
 	a.LastName = lastName
-	a.EncryptedPassword = string(encpw)
+	a.EncryptedPassword = hashedPassword
 	a.Number = int64(rand.Intn(1000000))
 	a.CreatedAt = time.Now().UTC()
 	return nil
 }
 
 func (a *Account) ValidPassword(pw string) bool {
-	return bcrypt.CompareHashAndPassword([]byte(a.EncryptedPassword), []byte(pw)) == nil
+	return auth.ValidatePassword(a.EncryptedPassword, pw) == nil
 }
 
 type CreateAccountRequest struct {

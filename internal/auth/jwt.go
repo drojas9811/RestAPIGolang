@@ -1,16 +1,16 @@
 package auth
 
 import (
-	model "RestAPIGolang/internal/models"
 	"fmt"
 	"os"
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func CreateJWT(account *model.Account) (string, error) {
+func CreateJWT(accountNumber int, accountName string) (string, error) {
 	claims := &jwt.MapClaims{
 		"expiresAt":     15000,
-		"accountNumber": account.Number,
+		"accountNumber": accountNumber,
+		"accountName": accountName,
 	}
 
 	secret := os.Getenv("JWT_SECRET")
