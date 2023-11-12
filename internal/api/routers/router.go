@@ -1,7 +1,8 @@
 package router
 
 import (
-	handler "github.com/anthdm/gobank/internal/api/handlers"
+	"RestAPIGolang/internal/api/handlers"
+
 	"github.com/gorilla/mux"
 )
 
@@ -31,16 +32,16 @@ func InitRouter() *mux.Router {
 			v1.POST("/login", middleware.APIKeyAuth(), auth.LoginHandler)
 			v1.POST("/register", middleware.APIKeyAuth(), auth.RegisterHandler)
 		}
-		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.handlers))
 
 	*/
 
 	router := mux.NewRouter()
-	router.HandleFunc("/login", handler.MakeHTTPHandleFunc(handler.Login)).Methods("POST")
-	router.HandleFunc("/account", handler.MakeHTTPHandleFunc(handler.CreateAccount)).Methods("POST")
-	router.HandleFunc("/account", handler.MakeHTTPHandleFunc(handler.GetAccount)).Methods("GET")
-	router.HandleFunc("/account/{id}", handler.WithJWTAuth(handler.MakeHTTPHandleFunc(handler.GetAccountByID)))
-	router.HandleFunc("/transfer", handler.MakeHTTPHandleFunc(handler.Transfer))
+	router.HandleFunc("/login", handlers.MakeHTTPHandleFunc(handlers.Login)).Methods("POST")
+	router.HandleFunc("/account", handlers.MakeHTTPHandleFunc(handlers.CreateAccount)).Methods("POST")
+	router.HandleFunc("/account", handlers.MakeHTTPHandleFunc(handlers.GetAccount)).Methods("GET")
+	router.HandleFunc("/account/{id}", handlers.WithJWTAuth(handlers.MakeHTTPHandleFunc(handlers.GetAccountByID)))
+	router.HandleFunc("/transfer", handlers.MakeHTTPHandleFunc(handlers.Transfer))
 
 	return router
 }

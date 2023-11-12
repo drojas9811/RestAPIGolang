@@ -1,8 +1,8 @@
 FROM golang:1.19.0
 
-WORKDIR /usr/src/app
+COPY ./ /go/src/
 
-COPY ./* ./
+WORKDIR /go/src/cmd
 
 RUN go build -o ./bin/RESTAPI
 

@@ -1,15 +1,14 @@
 package database
 
 import (
+	model "RestAPIGolang/internal/models"
 	"database/sql"
 	"fmt"
-
-	"github.com/anthdm/gobank/internal/models"
 )
 
 func GetAccounts() ([]*model.Account, error) {
 	//Get database instance
-	s:=GetDB()
+	s := GetDB()
 	//GetProcess
 	rows, err := s.Query("select * from account")
 	if err != nil {
@@ -30,7 +29,7 @@ func GetAccounts() ([]*model.Account, error) {
 
 func GetAccountByNumber(number int) (*model.Account, error) {
 	//Get database instance
-	s:=GetDB()
+	s := GetDB()
 	//GetProcess
 	rows, err := s.Query("select * from account where number = $1", number)
 	if err != nil {
@@ -46,7 +45,7 @@ func GetAccountByNumber(number int) (*model.Account, error) {
 
 func GetAccountByID(id int) (*model.Account, error) {
 	//Get database instance
-	s:=GetDB()
+	s := GetDB()
 	//GetProcess
 	rows, err := s.Query("select * from account where id = $1", id)
 	if err != nil {
@@ -65,7 +64,7 @@ func CreateAccount(acc *model.Account) error {
 	(first_name, last_name, number, encrypted_password, balance, created_at)
 	values ($1, $2, $3, $4, $5, $6)`
 	//Get database instance
-	s:=GetDB()
+	s := GetDB()
 	//GetProcess
 	_, err := s.Query(
 		query,
@@ -85,13 +84,11 @@ func CreateAccount(acc *model.Account) error {
 
 func DeleteAccount(id int) error {
 	//Get database instance
-	s:=GetDB()
+	s := GetDB()
 	//GetProcess
 	_, err := s.Query("delete from account where id = $1", id)
 	return err
 }
-
-
 
 func scanIntoAccount(rows *sql.Rows) (*model.Account, error) {
 	account := new(model.Account)

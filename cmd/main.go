@@ -1,19 +1,18 @@
 package main
 
 import (
+	"RestAPIGolang/internal/api/helpers"
+	router "RestAPIGolang/internal/api/routers"
+	"RestAPIGolang/internal/database"
 	"flag"
 	"fmt"
 	"log"
 	"net/http"
-
-	"github.com/anthdm/gobank/internal/api/helpers"
-	router "github.com/anthdm/gobank/internal/api/routers"
-	"github.com/anthdm/gobank/internal/database"
 )
 
-func main(){
+func main() {
 	//Flag for database fseeding
-	seed := flag.Bool("seed", false, "seed the db")
+	seed := flag.Bool("seed", true, "seed the db")
 	flag.Parse()
 	//Initialize database
 	if err := database.Init(); err != nil {
@@ -25,20 +24,14 @@ func main(){
 		helpers.SeedAccounts()
 	}
 	//Routes definition
-	router:=router.InitRouter()
+
+	router := router.InitRouter()
 	//Port definition
-	port:= 8080
+	port := 3000
 	//Start server
 	log.Println("JSON API server running on port: ", port)
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", port), router); err != nil {
-        log.Fatal("Web server (HTTPS): ", err)
-    }
+		log.Fatal("Web server (HTTPS): ", err)
+	}
 
-
-
-	
-
-	
 }
-
-

@@ -1,9 +1,9 @@
 package handlers
 
 import (
+	model "RestAPIGolang/internal/models"
 	"encoding/json"
 	"net/http"
-	"github.com/anthdm/gobank/internal/models"
 )
 
 func Transfer(w http.ResponseWriter, r *http.Request) error {

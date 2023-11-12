@@ -1,13 +1,13 @@
 package handlers
 
 import (
+	"RestAPIGolang/internal/database"
+	model "RestAPIGolang/internal/models"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
 
-	"github.com/anthdm/gobank/internal/database"
-	model "github.com/anthdm/gobank/internal/models"
 	"github.com/golang-jwt/jwt/v4"
 )
 
@@ -30,12 +30,12 @@ func Login(w http.ResponseWriter, r *http.Request) error {
 		return fmt.Errorf("not authenticated")
 	}
 
-	token, err := createJWT(acc) 
+	token, err := createJWT(acc)
 	if err != nil {
 		return err
 	}
 
-	resp := model.LoginResponse{   //add  model
+	resp := model.LoginResponse{ //add  model
 		Token:  token,
 		Number: acc.Number,
 	}
@@ -43,8 +43,7 @@ func Login(w http.ResponseWriter, r *http.Request) error {
 	return WriteJSON(w, http.StatusOK, resp)
 }
 
-
-//add modelo
+// add modelo
 func createJWT(account *model.Account) (string, error) {
 	claims := &jwt.MapClaims{
 		"expiresAt":     15000,

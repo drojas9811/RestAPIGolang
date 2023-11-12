@@ -1,18 +1,15 @@
 package handlers
 
 import (
+	"RestAPIGolang/internal/database"
+	model "RestAPIGolang/internal/models"
 	"encoding/json"
 	"fmt"
 	"math/rand"
 	"net/http"
 	"time"
-
-	"github.com/anthdm/gobank/internal/database"
-	model "github.com/anthdm/gobank/internal/models"
 	"golang.org/x/crypto/bcrypt"
 )
-
-
 
 func GetAccount(w http.ResponseWriter, r *http.Request) error {
 	accounts, err := database.GetAccounts()
@@ -74,7 +71,6 @@ func DeleteAccount(w http.ResponseWriter, r *http.Request) error {
 
 	return WriteJSON(w, http.StatusOK, map[string]int{"deleted": id})
 }
-
 
 func NewAccount(firstName, lastName, password string) (*model.Account, error) {
 	encpw, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)

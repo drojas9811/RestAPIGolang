@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"sync"
+	_ "github.com/lib/pq"
 )
 
 // DatabaseURL represents the connection string to the database

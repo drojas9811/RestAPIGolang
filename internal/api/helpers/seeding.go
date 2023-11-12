@@ -1,12 +1,11 @@
 package helpers
 
 import (
+	"RestAPIGolang/internal/api/handlers"
+	"RestAPIGolang/internal/database"
+	model "RestAPIGolang/internal/models"
 	"fmt"
 	"log"
-
-	"github.com/anthdm/gobank/internal/api/handlers"
-	"github.com/anthdm/gobank/internal/database"
-	model "github.com/anthdm/gobank/internal/models"
 )
 
 func seedAccount(fname, lname, pw string) *model.Account {
