@@ -36,3 +36,26 @@ func GetDB() *sql.DB {
 
 	return db
 }
+
+func Init() error {
+	newdataBase:=GetDB()
+	if err := createAccountTable(newdataBase); err != nil {
+		log.Fatal(err)
+		return err
+	}
+	return nil
+}
+
+func  createAccountTable(s *sql.DB) error {
+	query := `create table if not exists account (
+		id serial primary key,
+		first_name varchar(100),
+		last_name varchar(100),
+		number serial,
+		encrypted_password varchar(100),
+		balance serial,
+		created_at timestamp
+	)`
+	_, err := s.Exec(query)
+	return err
+}

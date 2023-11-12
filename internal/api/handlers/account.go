@@ -39,7 +39,7 @@ func GetAccountByID(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	if r.Method == "DELETE" {
-		return handleDeleteAccount(w, r)
+		return DeleteAccount(w, r)
 	}
 
 	return fmt.Errorf("method not allowed %s", r.Method)
@@ -89,18 +89,4 @@ func NewAccount(firstName, lastName, password string) (*model.Account, error) {
 		Number:            int64(rand.Intn(1000000)),
 		CreatedAt:         time.Now().UTC(),
 	}, nil
-}
-
-
-func handleDeleteAccount(w http.ResponseWriter, r *http.Request) error {
-	id, err := getID(r)
-	if err != nil {
-		return err
-	}
-
-	if err := database.DeleteAccount(id); err != nil {
-		return err
-	}
-
-	return WriteJSON(w, http.StatusOK, map[string]int{"deleted": id})
 }
