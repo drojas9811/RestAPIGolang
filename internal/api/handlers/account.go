@@ -2,13 +2,12 @@ package handlers
 
 import (
 	"RestAPIGolang/internal/database"
+	"RestAPIGolang/internal/helpers"
 	model "RestAPIGolang/internal/models"
+	"RestAPIGolang/internal/utils"
 	"encoding/json"
 	"fmt"
-	"math/rand"
 	"net/http"
-	"time"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func GetAccount(w http.ResponseWriter, r *http.Request) error {
@@ -17,12 +16,12 @@ func GetAccount(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	return WriteJSON(w, http.StatusOK, accounts)
+	return utils.WriteJSON(w, http.StatusOK, accounts)
 }
 
 func GetAccountByID(w http.ResponseWriter, r *http.Request) error {
 	if r.Method == "GET" {
-		id, err := getID(r)
+		id, err := helpers.GetID(r)
 		if err != nil {
 			return err
 		}
@@ -32,7 +31,7 @@ func GetAccountByID(w http.ResponseWriter, r *http.Request) error {
 			return err
 		}
 
-		return WriteJSON(w, http.StatusOK, account)
+		return utils.WriteJSON(w, http.StatusOK, account)
 	}
 
 	if r.Method == "DELETE" {
@@ -47,8 +46,8 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) error {
 	if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 		return err
 	}
-
-	account, err := NewAccount(req.FirstName, req.LastName, req.Password)
+	account:= new(model.Account)
+	err := account.NewAccount(req.FirstName, req.LastName, req.Password)
 	if err != nil {
 		return err
 	}
@@ -56,11 +55,11 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	return WriteJSON(w, http.StatusOK, account)
+	return utils.WriteJSON(w, http.StatusOK, account)
 }
 
 func DeleteAccount(w http.ResponseWriter, r *http.Request) error {
-	id, err := getID(r)
+	id, err := helpers.GetID(r)
 	if err != nil {
 		return err
 	}
@@ -69,20 +68,6 @@ func DeleteAccount(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	return WriteJSON(w, http.StatusOK, map[string]int{"deleted": id})
+	return utils.WriteJSON(w, http.StatusOK, map[string]int{"deleted": id})
 }
 
-func NewAccount(firstName, lastName, password string) (*model.Account, error) {
-	encpw, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	if err != nil {
-		return nil, err
-	}
-
-	return &model.Account{
-		FirstName:         firstName,
-		LastName:          lastName,
-		EncryptedPassword: string(encpw),
-		Number:            int64(rand.Intn(1000000)),
-		CreatedAt:         time.Now().UTC(),
-	}, nil
-}

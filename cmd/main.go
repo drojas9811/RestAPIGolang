@@ -1,7 +1,7 @@
 package main
 
 import (
-	"RestAPIGolang/internal/api/helpers"
+	"RestAPIGolang/internal/utils"
 	router "RestAPIGolang/internal/api/routers"
 	"RestAPIGolang/internal/database"
 	"flag"
@@ -21,7 +21,7 @@ func main() {
 	//seeding is allowed?
 	if *seed {
 		fmt.Println("seeding the database")
-		helpers.SeedAccounts()
+		utils.SeedAccounts()
 	}
 	//Routes definition
 

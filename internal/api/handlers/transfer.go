@@ -2,6 +2,7 @@ package handlers
 
 import (
 	model "RestAPIGolang/internal/models"
+	"RestAPIGolang/internal/utils"
 	"encoding/json"
 	"net/http"
 )
@@ -13,5 +14,5 @@ func Transfer(w http.ResponseWriter, r *http.Request) error {
 	}
 	defer r.Body.Close()
 
-	return WriteJSON(w, http.StatusOK, transferReq)
+	return utils.WriteJSON(w, http.StatusOK, transferReq)
 }
