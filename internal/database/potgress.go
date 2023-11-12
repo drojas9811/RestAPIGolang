@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"sync"
+
 	_ "github.com/lib/pq"
 )
 
@@ -39,7 +40,7 @@ func GetDB() *sql.DB {
 }
 
 func Init() error {
-	newdataBase:=GetDB()
+	newdataBase := GetDB()
 	if err := createAccountTable(newdataBase); err != nil {
 		log.Fatal(err)
 		return err
@@ -47,7 +48,7 @@ func Init() error {
 	return nil
 }
 
-func  createAccountTable(s *sql.DB) error {
+func createAccountTable(s *sql.DB) error {
 	query := `create table if not exists account (
 		id serial primary key,
 		first_name varchar(100),

@@ -3,6 +3,7 @@ package auth
 import (
 	"fmt"
 	"os"
+
 	"github.com/golang-jwt/jwt/v4"
 )
 
@@ -10,7 +11,7 @@ func CreateJWT(accountNumber int, accountName string) (string, error) {
 	claims := &jwt.MapClaims{
 		"expiresAt":     15000,
 		"accountNumber": accountNumber,
-		"accountName": accountName,
+		"accountName":   accountName,
 	}
 
 	secret := os.Getenv("JWT_SECRET")
@@ -18,8 +19,6 @@ func CreateJWT(accountNumber int, accountName string) (string, error) {
 
 	return token.SignedString([]byte(secret))
 }
-
-
 
 func ValidateJWT(tokenString string) (*jwt.Token, error) {
 	secret := os.Getenv("JWT_SECRET")

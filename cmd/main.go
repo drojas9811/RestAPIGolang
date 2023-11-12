@@ -1,9 +1,9 @@
 package main
 
 import (
-	"RestAPIGolang/internal/utils"
 	router "RestAPIGolang/internal/api/routers"
 	"RestAPIGolang/internal/database"
+	"RestAPIGolang/internal/utils"
 	"flag"
 	"fmt"
 	"log"

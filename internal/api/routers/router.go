@@ -3,6 +3,7 @@ package router
 import (
 	"RestAPIGolang/internal/api/handlers"
 	"RestAPIGolang/internal/api/middlewares"
+
 	"github.com/gorilla/mux"
 )
 

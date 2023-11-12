@@ -22,7 +22,7 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) error {
 	if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 		return err
 	}
-	account:= new(models.Account)
+	account := new(models.Account)
 	err := account.NewAccount(req.FirstName, req.LastName, req.Password)
 	if err != nil {
 		return err
@@ -34,15 +34,15 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) error {
 }
 
 func GetAccountByID(w http.ResponseWriter, r *http.Request) error {
-		id, err := helpers.GetID(r)
-		if err != nil {
-			return err
-		}
-		account, err := database.GetAccountByID(id)
-		if err != nil {
-			return err
-		}
-		return utils.WriteJSON(w, http.StatusOK, account)
+	id, err := helpers.GetID(r)
+	if err != nil {
+		return err
+	}
+	account, err := database.GetAccountByID(id)
+	if err != nil {
+		return err
+	}
+	return utils.WriteJSON(w, http.StatusOK, account)
 }
 
 func DeleteAccountByID(w http.ResponseWriter, r *http.Request) error {
@@ -55,4 +55,3 @@ func DeleteAccountByID(w http.ResponseWriter, r *http.Request) error {
 	}
 	return utils.WriteJSON(w, http.StatusOK, map[string]int{"deleted": id})
 }
-

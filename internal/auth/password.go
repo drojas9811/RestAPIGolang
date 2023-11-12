@@ -3,13 +3,13 @@ package auth
 import "golang.org/x/crypto/bcrypt"
 
 func EncryptPassword(password string) (string, error) {
-    hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-    if err != nil {
-        return "", err
-    }
-    return string(hashedPassword), nil
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hashedPassword), nil
 }
 
 func ValidatePassword(plainPassword, hashedPassword string) error {
-    return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(plainPassword))
+	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(plainPassword))
 }

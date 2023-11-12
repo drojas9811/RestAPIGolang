@@ -12,7 +12,7 @@ type ApiError struct {
 
 func MakeHTTPHandleFunc(f ApiFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if err:=f(w,r); err!=nil{
+		if err := f(w, r); err != nil {
 			utils.WriteJSON(w, http.StatusBadRequest, ApiError{Error: err.Error()})
 		}
 	}

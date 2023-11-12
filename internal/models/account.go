@@ -18,9 +18,9 @@ type Account struct {
 
 func (a *Account) NewAccount(firstName, lastName, password string) error {
 	hashedPassword, err := auth.EncryptPassword(password)
-    if err != nil {
-        return err
-    }
+	if err != nil {
+		return err
+	}
 	a.FirstName = firstName
 	a.LastName = lastName
 	a.EncryptedPassword = hashedPassword
@@ -30,7 +30,7 @@ func (a *Account) NewAccount(firstName, lastName, password string) error {
 }
 
 func (a *Account) ValidPassword(pw string) bool {
-	return auth.ValidatePassword(pw,a.EncryptedPassword) == nil
+	return auth.ValidatePassword(pw, a.EncryptedPassword) == nil
 }
 
 type CreateAccountRequest struct {

@@ -9,16 +9,14 @@ import (
 	"net/http"
 )
 
-
 func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(status)
 	return json.NewEncoder(w).Encode(v)
 }
 
-
 func seedAccount(fname, lname, pw string) *model.Account {
-	acc:=new(model.Account)
+	acc := new(model.Account)
 	err := acc.NewAccount(fname, lname, pw)
 	if err != nil {
 		log.Fatal(err)
@@ -36,4 +34,3 @@ func seedAccount(fname, lname, pw string) *model.Account {
 func SeedAccounts() {
 	seedAccount("anthony", "GG", "hunter88888")
 }
-
