@@ -2,6 +2,7 @@ package auth
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -15,6 +16,7 @@ func CreateJWT(accountNumber int, accountName string) (string, error) {
 	}
 
 	secret := os.Getenv("JWT_SECRET")
+	log.Printf("LOG_INFO::INIT::MSG::Setting enviroment variable with value: %s", secret)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 	return token.SignedString([]byte(secret))
