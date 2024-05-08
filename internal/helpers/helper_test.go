@@ -12,6 +12,7 @@ func TestPagination(t *testing.T) {
 		input []string
 		items_per_page int
 		paginationExpetedAfterInit int
+		pageCountedExpected int
 		
 
 	}{
@@ -52,13 +53,13 @@ func TestPagination(t *testing.T) {
 			itemsByPage1 := testedStructure.Page_item_count(1) //last page -should =
 			itemsByPage2 := testedStructure.Page_item_count(2) //should ==-1 since the page
 			pageOfItem := testedStructure.Page_index(5)        //should ==1 (Zero based index)
-			fmt.Println("Results from fuctions are:",
-				pages,
-				items,
-				itemsByPage,
-				itemsByPage1,
-				itemsByPage2,
-				pageOfItem,
+			t.Logf("Results from fuctions are: %d,%d,%d,%d,%d,%d",
+			pages,
+			items,
+			itemsByPage,
+			itemsByPage1,
+			itemsByPage2,
+			pageOfItem,
 			)
 		})
 	}
